@@ -28,9 +28,8 @@ os.chdir(final_directory)
 data = generateDeterministicSwissRoll(80)
 ndata=np.array([np.array(xi) for xi in data])
 ndata_preimage = np.copy(ndata)
-#defaults to 5 neighbors, in kclosest neighbors graph
+#defaults to 5 neighbors in kclosest neighbors graph
 embedded_array = manifold.Isomap(n_neighbors=15, n_components=2).fit_transform(ndata)
-# embedded_array = manifold.Isomap(n_neighbors=5, n_components=2).fit_transform(ndata) //200pt example
 
 colors = np.zeros(shape=(len(data), 3))
 for i in range(len(data)):

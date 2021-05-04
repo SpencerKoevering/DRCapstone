@@ -1,4 +1,4 @@
-#A general plotting function for CCA output
+#A general plotting function for CCA output. Must be 3d to 2d reduction.
 
 import os 
 import time 

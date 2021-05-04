@@ -342,19 +342,6 @@ std::vector<std::vector<double>> geodesic_data_distances(std::vector<std::vector
 }
 
 
-double step_function(double Yij, double lambda_value){ //what is the derivative of heaviside???
-    if (Yij <= lambda_value){
-        return 1;
-    }
-    else{
-        return 0;
-    }
-}
-double d_step_function(double Yij, double lambda_value){
-    return 0;
-}
-
-
 void updateLambda(std::vector<double> *lambdas, std::vector<std::vector<double>> *embedded_data, int x_index, int epoch, double desired_pi, double F(double, double)){
     std::vector<int> indicesOfPointsInNeighborhood;
     for(int j=0; j<lambdas->size(); j++){
@@ -384,7 +371,6 @@ double excitation(double ki, double lambda){
 }
 
 std::vector<double> get_updated_prototype(std::vector<double> *w, std::vector<double> *v, double lambda, double epsilon, double Dv){
-    // epsilon * excitation(Dv, lambda)(v-w)
     double term1 = epsilon*excitation(Dv, lambda);
     std::vector<double> vector_diff = vector_subtraction(v, w);
     std::vector<double> multiplied = scalar_multiplication(term1, &vector_diff);
@@ -485,7 +471,7 @@ int max_epoch: maximum number of iterations
 int K: the number of closest neighbors to use for the K-closest neighbor similarity graph, does nothing if neural gas is enabled
 float desired_pi: the proportion of data to keep in the neighborhood width of each point, see lee verleyson nonlinear dimensionality reduction for a specification on how this works
 
-note: Since the neural gas was never tuned to my satisfaction its parameters must be hard coded in in line 491, again only use this if you know what you are doing.
+note: Since the neural gas was never tuned to my satisfaction I did not fully integrate it, its parameters must be hard coded in in line 491. Again only use this if you know what you are doing.
 */
 std::tuple<std::vector<std::vector<double>>, std::vector<std::vector<double>>, std::vector<double>, std::vector<std::vector<double>>> cda(std::vector<std::vector<double>> const *inputdata, double F(double, double), double F_prime(double, double), int dim, double alpha, double alpha_update(double, double, int, int), bool quantize, bool do_pca, double alpha_n, int max_epoch, int K, double desired_pi){
     std::vector<std::vector<double>> K_rule_graph;

@@ -56,7 +56,7 @@ bool hasConverged(std::list<double> const *error_pointer){
         cumulative_error+=std::abs(*current-previous);
         previous=*current;
     }
-    if(cumulative_error < .00000000001){
+    if(cumulative_error < .00001){ //This value is arbitrary
         return true;
     }
     else{
@@ -190,7 +190,7 @@ std::vector<double> get_updated_x2(int x1_index, int x2_index, std::vector<std::
     std::vector<double> deltax2 = scalar_multiplication(alpha, &rawupdatevector);
     std::vector<double> test = vector_subtraction(&((*embedded_data)[x2_index]), &deltax2);
     return vector_subtraction(&((*embedded_data)[x2_index]), &deltax2);
-    //#see equation 4.82 in lee verleyson
+    //see equation 4.82 in lee verleyson
 }
 
 
@@ -206,8 +206,8 @@ std::vector<int> get_random_order(int length){
 /*
 does a CCA reduction, returns a vector of vectors, where the inner vectors are the data points
 Data: the input data: vector of data points (also vectors)
-F: the neighborhood function. is passed: lambda
-F': the derivative of the neighborhood function. is passed: lambda
+F: the neighborhood function. is passed: dx, lambda
+F': the derivative of the neighborhood function. is passed: dx, lambda
 lambda_value: The initial value of the neighborhood width
 lambda_update: The function that updates lambda at each timestep (current lambda, final desired lambda, current epoch, max epoch)
 dim: The desired output dimension
